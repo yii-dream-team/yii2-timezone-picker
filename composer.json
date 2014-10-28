@@ -1,7 +1,8 @@
 {
-    "name": "lagman/yii2-timezone-picker",
+    "name": "yii-dream-team/yii2-timezone-picker",
     "description": "Yii2 Timezone Picker",
     "license": "MIT",
+	"type": "yii2-extension",
 	"keywords": ["yii2", "widget", "dropdown", "picker", "timezone"],
     "authors": [
         {
