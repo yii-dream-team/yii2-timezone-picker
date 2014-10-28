@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "yiidreamteam\\widgets\\timezonepicker\\": "./src"
+            "yiidreamteam\\widgets\\timezone\\": "./src"
         }
     }
 }
