@@ -5,7 +5,7 @@
 
 namespace yiidreamteam\widgets\timezone;
 
-use yii\bootstrap\Dropdown;
+use yii\helpers\Html;
 use yii\widgets\InputWidget;
 
 class Picker extends InputWidget
@@ -20,9 +20,6 @@ class Picker extends InputWidget
             $timeZones[$timeZone] = $timeZone . ' ' . $now->format('P');
         }
 
-        echo Dropdown::widget([
-            'items' => $timeZones,
-            'options' => $this->options,
-        ]);
+        echo Html::activeDropDownList($this->model, $this->attribute, $timeZones, $this->options);
     }
 }
