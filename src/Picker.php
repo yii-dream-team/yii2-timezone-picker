@@ -46,7 +46,7 @@ class Picker extends InputWidget
                         return $matches[0];
                 }
             }, $this->template);
-            $timeZonesOutput[] = $content;
+            $timeZonesOutput[$timeZone[1]] = $content;
         }
 
         echo Html::activeDropDownList($this->model, $this->attribute, $timeZonesOutput, $this->options);
