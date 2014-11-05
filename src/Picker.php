@@ -16,7 +16,7 @@ class Picker extends InputWidget
 
     public $template = '{name} {offset}';
 
-    public $sortOrder = 0;
+    public $sortBy = 0;
 
     /**
      * @inheritdoc
@@ -32,7 +32,7 @@ class Picker extends InputWidget
             $timeZones[] = [$now->format('P'), $timeZone];
         }
 
-        if($this->sortOrder == static::SORT_OFFSET)
+        if($this->sortBy == static::SORT_OFFSET)
             array_multisort($timeZones);
         
         foreach ($timeZones as $timeZone) {
