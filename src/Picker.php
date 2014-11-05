@@ -10,7 +10,13 @@ use yii\widgets\InputWidget;
 
 class Picker extends InputWidget
 {
+
+    const SORT_NAME   = 0;
+    const SORT_OFFSET = 1;
+
     public $template = '{name} {offset}';
+
+    public $sortOrder = 0;
 
     /**
      * @inheritdoc
@@ -18,23 +24,31 @@ class Picker extends InputWidget
     public function run()
     {
         $timeZones = [];
+        $timeZonesOutput = [];
         $now = new \DateTime('now', new \DateTimeZone('UTC'));
 
         foreach (\DateTimeZone::listIdentifiers(\DateTimeZone::ALL) as $timeZone) {
             $now->setTimezone(new \DateTimeZone($timeZone));
-            $content = preg_replace_callback("/{\\w+}/", function ($matches) use ($timeZone, $now) {
+            $timeZones[] = [$now->format('P'), $timeZone];
+        }
+
+        if($this->sortOrder == static::SORT_OFFSET)
+            array_multisort($timeZones);
+        
+        foreach ($timeZones as $timeZone) {
+            $content = preg_replace_callback("/{\\w+}/", function ($matches) use ($timeZone) {
                 switch ($matches[0]) {
                     case '{name}':
-                        return $timeZone;
+                        return $timeZone[1];
                     case '{offset}':
-                        return $now->format('P');
+                        return $timeZone[0];
                     default:
                         return $matches[0];
                 }
             }, $this->template);
-            $timeZones[$timeZone] = $content;
+            $timeZonesOutput[] = $content;
         }
 
-        echo Html::activeDropDownList($this->model, $this->attribute, $timeZones, $this->options);
+        echo Html::activeDropDownList($this->model, $this->attribute, $timeZonesOutput, $this->options);
     }
 }
