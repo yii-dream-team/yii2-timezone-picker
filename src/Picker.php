@@ -17,6 +17,9 @@ class Picker extends InputWidget
     public $template = '{name} {offset}';
 
     public $sortBy = 0;
+    
+    /** @var string|null  */
+    public $selection = null;
 
     /**
      * @inheritdoc
@@ -49,6 +52,10 @@ class Picker extends InputWidget
             $timeZonesOutput[$timeZone[1]] = $content;
         }
 
-        echo Html::activeDropDownList($this->model, $this->attribute, $timeZonesOutput, $this->options);
+        if($this->hasModel()){
+            echo Html::activeDropDownList($this->model, $this->attribute, $timeZonesOutput, $this->options);
+        }else{
+            echo Html::dropDownList($this->name, $this->selection, $timeZonesOutput, $this->options);
+        }
     }
 }
