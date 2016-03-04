@@ -45,7 +45,7 @@ class Picker extends InputWidget
      * Choosing DateTimeZones to obtain.
      * @var null | integer
      */
-    public $what = self::ALL;
+    public $zones = self::ALL;
 
     /**
      * A two-letter ISO 3166-1 compatible country code.
@@ -63,7 +63,7 @@ class Picker extends InputWidget
         $timeZonesOutput = [];
         $now = new \DateTime('now', new \DateTimeZone('UTC'));
 
-        foreach (\DateTimeZone::listIdentifiers($this->what, $this->country) as $timeZone) {
+        foreach (\DateTimeZone::listIdentifiers($this->zones, $this->country) as $timeZone) {
             $now->setTimezone(new \DateTimeZone($timeZone));
             $timeZones[] = [$now->format('P'), $timeZone];
         }
